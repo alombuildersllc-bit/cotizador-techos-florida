@@ -15,70 +15,46 @@
           <p>Estimado rápido para reemplazo de techos</p>
         </header>
 
-        <form id="roofForm" method="POST" data-netlify="true" name="cotizador_florida">
-          <input type="hidden" name="form-name" value="cotizador_florida" />
-          <div class="form-group">
-            <label>Área de la casa (Pies Cuadrados)</label>
-            <input type="number" id="area" placeholder="Ej. 2500" required>
-          </div>
+        <form 
+    id="roofForm" 
+    method="POST" 
+    data-netlify="true" 
+    name="cotizador_florida"
+    action="/success">
+    
+    <input type="hidden" name="form-name" value="cotizador_florida" />
 
-          <div class="form-group">
-  <label>Material de Techo Actual (a remover)</label>
-  <select id="material_actual">
-    <option value="40">Shingles (Asfalto)</option>
-    <option value="60">Metal</option>
-    <option value="80">Teja (Tile/Concreto)</option>
-  </select>
-</div>
+    <label>Pisos:</label><br>
+    <label><input type="radio" name="pisos" value="1.0" checked> 1 Piso</label> 
+    <div id="resultado" class="hidden">
+        
+        <p>El costo estimado es: <span id="precioFinal"></span></p>
+        
+        <input type="hidden" id="estimado_final" name="estimado_final" value="" />
+        
+        
+        <div id="leadForm" class="hidden"> 
+            <hr>
+            <h3>Datos de Contacto</h3>
+            
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" required>
 
-          <div class="form-group">
-            <label>Material Deseado</label>
-            <select id="material">
-              <option value="180">Shingle 3-Tab (Económico)</option>
-              <option value="220">Shingle Arquitectónico (Popular)</option>
-              <option value="400">Metal 5V Crimp (Resistente)</option>
-              <option value="700">Teja / Tile (Premium)</option>
-            </select>
-          </div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            
+            <label for="telefono">Teléfono:</label>
+            <input type="tel" id="telefono" name="telefono" required>
 
-          <div class="form-group">
-            <label>Pendiente del Techo</label>
-            <select id="pitch">
-              <option value="1.0">Baja (Caminable)</option>
-              <option value="1.15">Media (Requiere cuidado)</option>
-              <option value="1.3">Alta (Muy empinado)</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label>Niveles</label>
-            <div class="radio-group">
-              <label><input type="radio" name="pisos" value="1.0" checked> 1 Piso</label>
-              <label><input type="radio" name="pisos" value="1.1"> 2 Pisos (+10%)</label>
-            </div>
-          </div>
-
-          <div id="leadForm" class="hidden">
-    <hr style="margin: 1.5rem 0;">
-    <h3>Datos de Contacto</h3>
-    <div class="form-group">
-        <label>Nombre Completo</label>
-        <input type="text" id="nombre" name="nombre" placeholder="Juan Pérez" >
-    </div>
-    <div class="form-group">
-        <label>Email</label>
-        <input type="email" id="email" name="email" placeholder="tu@correo.com" >
-    </div>
-    <div class="form-group">
-        <label>Teléfono</label>
-        <input type="tel" id="telefono" name="telefono" placeholder="(555) 555-5555" >
+            <button type="submit" class="btn-secondary" id="btnContactar">Enviar Estimado y Contactar</button>
+            
+        </div>
+        
     </div>
     
-    <input type="hidden" id="estimado_final" name="estimado_final" value="">
-</div>
+    <button type="button" class="btn-primary" id="btnCalcular">Calcular Estimado</button>
 
-          <button type="submit" id="btnCalcular">Calcular Estimado</button>
-        </form>
+</form>
 
       <div id="resultado" class="hidden">
     <hr>
