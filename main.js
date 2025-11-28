@@ -68,31 +68,18 @@ function handleCalculationSubmit(e) {
     // 5. ¡HABILITAR EL ENVÍO A NETLIFY!
     // ----------------------------------------------------
     
-    // 5a. Removemos el listener actual de CÁLCULO
+    // 5a. Removemos el listener de CÁLCULO
     form.removeEventListener('submit', handleCalculationSubmit);
     
-    // 5b. Agregamos un nuevo listener que ya NO bloquea el envío.
-    form.addEventListener('submit', function(event) {
-        // El envío nativo continúa, Netlify lo captura.
-    });
-
-    // 5c. Modificamos el texto del botón Contactar
+    // 5b. ¡El secreto! Clonamos el formulario para borrar todos los listeners 
+    //     que puedan estar interfiriendo, y lo reemplazamos.
+    const formClone = form.cloneNode(true);
+    form.parentNode.replaceChild(formClone, form);
+    
+    // 5c. El botón Contactar ahora debe ser un submit nativo para Netlify.
     if (btnContactar) {
-        // Asumimos que el HTML ya lo tiene como type="submit"
         btnContactar.textContent = 'Enviar Estimado y Contactar';
     }
-
-  } catch (error) {
-    // Si la función falla (ej. ReferenceError por ID faltante), alertamos al usuario y registramos el error en la consola.
-    console.error("Error de Referencia: La calculadora falló al leer un campo. Asegúrese que todos los IDs del HTML existan y estén escritos correctamente (área, material, material_actual, etc.) y que un radio button 'pisos' esté marcado.", error); 
-    alert("Hubo un error al calcular el estimado. Verifique la Consola (F12) para detalles.");
-    return;
-  }
-}
-
-// ----------------------------------------------------
-// 2. ASIGNACIÓN DEL EVENTO INICIAL
-// ----------------------------------------------------
-
-// Inicialmente, este listener previene el envío y corre el cálculo.
-form.addEventListener('submit', handleCalculationSubmit);
+    
+    // Después de clonar, el formulario está limpio y listo para enviar.
+    // No necesitamos más listeners, Netlify hace el trabajo por sí solo.
