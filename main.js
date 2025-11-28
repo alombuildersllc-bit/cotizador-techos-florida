@@ -68,9 +68,10 @@ function handleCalculationSubmit(e) {
   // Quitamos el listener de cálculo
   form.removeEventListener('submit', handleCalculationSubmit);
   
-  // Añadimos un listener simple que no bloquea (permitiendo a Netlify enviar)
+  // Añadimos un listener simple que solo permite el envío.
+  // Es mejor usar una función anónima para evitar conflictos.
   form.addEventListener('submit', function(event) {
-      // El envío nativo continúa.
+      // No hacemos nada; dejamos que el envío nativo a Netlify suceda.
   });
 
   // Reemplazamos el botón de Contactar por 'Enviar Estimado'
@@ -78,7 +79,7 @@ function handleCalculationSubmit(e) {
   if (finalButton) {
       finalButton.textContent = 'Enviar Estimado y Contactar';
   }
-}
+} // <--- Cierre de la función handleCalculationSubmit
 
 // ----------------------------------------------------
 // 2. ASIGNACIÓN DEL EVENTO INICIAL
