@@ -79,7 +79,10 @@ function handleCalculationSubmit(e) {
     // 5c. El botón Contactar ahora debe ser un submit nativo para Netlify.
     if (btnContactar) {
         btnContactar.textContent = 'Enviar Estimado y Contactar';
-    }
+    }}}
     
     // Después de clonar, el formulario está limpio y listo para enviar.
     // No necesitamos más listeners, Netlify hace el trabajo por sí solo.
+
+
+    //git log -1 --oneline
