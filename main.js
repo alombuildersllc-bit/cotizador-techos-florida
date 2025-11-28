@@ -65,15 +65,14 @@ function handleCalculationSubmit(e) {
 
   // 5. HABILITAR EL ENVÍO A NETLIFY
   
-  // Quitamos el listener de cálculo
+  // 5a. Método más fuerte: Establecer el onsubmit a null limpia cualquier listener
+  // que pueda estar bloqueando el envío.
+  form.onsubmit = null;
+  
+  // 5b. OPCIONAL: Revertimos el listener para el caso de que alguien lo necesite,
+  // pero el onsubmit = null es el que hace la limpieza principal.
   form.removeEventListener('submit', handleCalculationSubmit);
   
-  // Añadimos un listener simple que solo permite el envío.
-  // Es mejor usar una función anónima para evitar conflictos.
-  form.addEventListener('submit', function(event) {
-      // No hacemos nada; dejamos que el envío nativo a Netlify suceda.
-  });
-
   // Reemplazamos el botón de Contactar por 'Enviar Estimado'
   const finalButton = document.querySelector('#resultado button[type="submit"]');
   if (finalButton) {
