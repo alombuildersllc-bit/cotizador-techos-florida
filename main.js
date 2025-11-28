@@ -76,13 +76,23 @@ function handleCalculationSubmit(e) {
     const formClone = form.cloneNode(true);
     form.parentNode.replaceChild(formClone, form);
     
+    // ... (Toda la lógica de la Sección 5: Clonación)
+
+    // ... (Tu código de la Sección 5 aquí) ...
+
     // 5c. El botón Contactar ahora debe ser un submit nativo para Netlify.
     if (btnContactar) {
         btnContactar.textContent = 'Enviar Estimado y Contactar';
-    }}}
-    
-    // Después de clonar, el formulario está limpio y listo para enviar.
-    // No necesitamos más listeners, Netlify hace el trabajo por sí solo.
+    }
+  
+    // 5d. Cerramos el bloque TRY y abrimos el bloque CATCH
+  } catch (error) { // <-- ¡La llave de cierre del TRY y la apertura del CATCH son obligatorias!
+    // Capturamos el error
+    console.error("Error de Referencia o Cálculo:", error);
+    alert("Hubo un error al calcular. Verifique la consola (F12).");
+  } 
 
+} // <--- CIERRA LA FUNCIÓN handleCalculationSubmit
+// ... (El resto del archivo, el form.addEventListener)
 
     //git log -1 --oneline
