@@ -1,20 +1,19 @@
 // Seleccionamos los elementos del HTML
+// Asegúrate de que todos estos IDs existan en tu index.html
 const form = document.getElementById('roofForm');
 const resultDiv = document.getElementById('resultado');
 const precioSpan = document.getElementById('precioFinal');
 const leadForm = document.getElementById('leadForm'); 
 const btnCalcular = document.getElementById('btnCalcular'); 
 const estimadoFinalInput = document.getElementById('estimado_final'); 
-const btnContactar = document.getElementById('btnContactar');
 
 // ----------------------------------------------------
 // 1. FUNCIÓN DE CÁLCULO Y CONTROL DE FLUJO
 // ----------------------------------------------------
 function handleCalculationSubmit(e) {
-  // Evitamos el envío inicial del formulario para ejecutar el cálculo
+  // 1. Evitar el envío inicial y capturar valores
   e.preventDefault(); 
   
-  // 1. Capturar Valores (Asegúrate de que todos estos IDs existan en tu HTML)
   const area = parseFloat(document.getElementById('area').value);
   const precioMaterial = parseFloat(document.getElementById('material').value);
   const factorPendiente = parseFloat(document.getElementById('pitch').value);
@@ -56,11 +55,11 @@ function handleCalculationSubmit(e) {
   // Actualizar el UI y MOSTRAR LOS CAMPOS DE CONTACTO
   precioSpan.textContent = rangoTexto;
   
+  // Ocultamos el botón de cálculo y REVELAMOS las secciones
   if (btnCalcular) {
-      btnCalcular.style.display = 'none'; // Ocultar el botón de cálculo
+      btnCalcular.style.display = 'none'; 
   }
   
-  // ESTA ES LA LÍNEA CLAVE: REVELAR EL FORMULARIO DE CONTACTO
   resultDiv.classList.remove('hidden');
   leadForm.classList.remove('hidden'); 
 
@@ -71,12 +70,13 @@ function handleCalculationSubmit(e) {
   
   // Añadimos un listener simple que no bloquea (permitiendo a Netlify enviar)
   form.addEventListener('submit', function(event) {
-      // Dejamos que el envío pase a Netlify
+      // El envío nativo continúa.
   });
-  
-  // Cambiamos el texto del botón
-  if (btnContactar) {
-      btnContactar.textContent = 'Enviar Estimado y Contactar';
+
+  // Reemplazamos el botón de Contactar por 'Enviar Estimado'
+  const finalButton = document.querySelector('#resultado button[type="submit"]');
+  if (finalButton) {
+      finalButton.textContent = 'Enviar Estimado y Contactar';
   }
 }
 
