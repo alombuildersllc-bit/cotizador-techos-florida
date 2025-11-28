@@ -7,20 +7,18 @@ const leadForm = document.getElementById('leadForm');
 const btnCalcular = document.getElementById('btnCalcular'); 
 const estimadoFinalInput = document.getElementById('estimado_final'); 
 
+// ... Todo el código de declaración de variables (const form, etc.) va arriba ...
+
 // ----------------------------------------------------
 // 1. FUNCIÓN DE CÁLCULO Y CONTROL DE FLUJO
 // ----------------------------------------------------
 function handleCalculationSubmit(e) {
-  // Evitamos que el formulario se envíe inmediatamente al inicio (lo que haría Netlify)
+  // Solo la primera vez, prevenimos el envío para ejecutar el cálculo
   e.preventDefault(); 
   
-  // 1. Capturar Valores
-  // **VERIFICACIÓN CRÍTICA**: Asegúrate de que los IDs existan en el HTML
+  // 1. Capturar Valores (Mismo código de captura)
   const area = parseFloat(document.getElementById('area').value);
-  const precioMaterial = parseFloat(document.getElementById('material').value);
-  const factorPendiente = parseFloat(document.getElementById('pitch').value);
-  const factorPisos = parseFloat(document.querySelector('input[name="pisos"]:checked').value);
-  const costoArrancando = parseFloat(document.getElementById('material_actual').value); 
+  // ... (otras variables)
   
   // Validación
   if (isNaN(area) || area <= 0) {
@@ -28,48 +26,46 @@ function handleCalculationSubmit(e) {
       return;
   }
 
-  // 2. La Lógica Matemática
-  const squares = area / 100;
-  const wasteFactor = 1.15;
-  const squaresReales = squares * wasteFactor;
-  const costoBase = squaresReales * precioMaterial;
-  const costoAjustado = costoBase * factorPendiente * factorPisos;
-  const costo_arranque = squares * costoArrancando;
-  const permisos = 500;
+  // 2. La Lógica Matemática (Cálculo)
+  // ... (Mismo código de cálculo)
   const total = costoAjustado + permisos + costo_arranque;
-
+  
   // 3. Crear Rango de Salida
-  const total_minimo = total * 0.9;
-  const total_maximo = total * 1.1;
-
-  const formatoMoneda = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-    maximumFractionDigits: 0
-  });
+  // ... (Mismo código de formato de moneda)
   const rangoTexto = `${formatoMoneda.format(total_minimo)} - ${formatoMoneda.format(total_maximo)}`;
 
   // 4. CONTROL DE FLUJO (Actualizar UI y Revelar Formulario de Lead)
-  
-  // Guardamos el resultado en el campo oculto de Netlify
   estimadoFinalInput.value = rangoTexto;
-
-  // Actualizar el UI
   precioSpan.textContent = rangoTexto;
-  // Ocultamos el botón de cálculo y mostramos la sección de resultados/leads
   btnCalcular.style.display = 'none'; 
   resultDiv.classList.remove('hidden');
   leadForm.classList.remove('hidden');
 
-  // **IMPORTANTE:** Aquí no modificamos listeners. La próxima vez que el usuario
-  // haga clic en 'Contactar un Agente' (que es el botón de envío nativo),
-  // el formulario se enviará a Netlify.
+  // ----------------------------------------------------
+  // 5. ¡HABILITAR EL ENVÍO A NETLIFY! (La Corrección)
+  // ----------------------------------------------------
+  
+  // 5a. Removemos el listener actual de CÁLCULO
+  form.removeEventListener('submit', handleCalculationSubmit);
+  
+  // 5b. Agregamos un nuevo listener que ya NO bloquea el envío, 
+  //     permitiendo que Netlify se haga cargo.
+  form.addEventListener('submit', function(event) {
+      // Simplemente permitimos que el formulario se envíe si no hay más validación
+      // Si la validación del nombre, email, etc., pasa, el envío sigue.
+      // Netlify captura los datos y te dirige a la página de éxito.
+  });
+  
+  // Opcional: Reemplazar el botón "Calcular" por "Enviar" al final de la lógica
+  const btnContactar = document.getElementById('btnContactar'); 
+  if (btnContactar) {
+      btnContactar.setAttribute('type', 'submit');
+      btnContactar.textContent = 'Enviar Estimado y Contactar';
+  }
 }
 
 // ----------------------------------------------------
-// 2. ASIGNACIÓN DEL EVENTO INICIAL
+// 2. ASIGNACIÓN DEL EVENTO INICIAL (se mantiene igual)
 // ----------------------------------------------------
 
-// Escucha el evento de envío del formulario. La primera vez, 
-// solo ejecuta la función de cálculo (handleCalculationSubmit).
 form.addEventListener('submit', handleCalculationSubmit);
