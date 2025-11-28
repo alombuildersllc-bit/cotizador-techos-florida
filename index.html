@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cotizador Techos Florida</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div id="app">
+      <div class="card">
+        <header>
+          <h1>🏠 Cotizador Florida</h1>
+          <p>Estimado rápido para reemplazo de techos</p>
+        </header>
+
+        <form id="roofForm" method="POST" data-netlify="true" name="cotizador_florida">
+          <div class="form-group">
+            <label>Área de la casa (Pies Cuadrados)</label>
+            <input type="number" id="area" placeholder="Ej. 2500" required>
+          </div>
+
+          <div class="form-group">
+  <label>Material de Techo Actual (a remover)</label>
+  <select id="material_actual">
+    <option value="40">Shingles (Asfalto)</option>
+    <option value="60">Metal</option>
+    <option value="80">Teja (Tile/Concreto)</option>
+  </select>
+</div>
+
+          <div class="form-group">
+            <label>Material Deseado</label>
+            <select id="material">
+              <option value="180">Shingle 3-Tab (Económico)</option>
+              <option value="220">Shingle Arquitectónico (Popular)</option>
+              <option value="400">Metal 5V Crimp (Resistente)</option>
+              <option value="700">Teja / Tile (Premium)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Pendiente del Techo</label>
+            <select id="pitch">
+              <option value="1.0">Baja (Caminable)</option>
+              <option value="1.15">Media (Requiere cuidado)</option>
+              <option value="1.3">Alta (Muy empinado)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Niveles</label>
+            <div class="radio-group">
+              <label><input type="radio" name="pisos" value="1.0" checked> 1 Piso</label>
+              <label><input type="radio" name="pisos" value="1.1"> 2 Pisos (+10%)</label>
+            </div>
+          </div>
+
+          <div id="leadForm" class="hidden">
+    <hr style="margin: 1.5rem 0;">
+    <h3>Datos de Contacto</h3>
+    <div class="form-group">
+        <label>Nombre Completo</label>
+        <input type="text" id="nombre" name="nombre" placeholder="Juan Pérez" >
+    </div>
+    <div class="form-group">
+        <label>Email</label>
+        <input type="email" id="email" name="email" placeholder="tu@correo.com" >
+    </div>
+    <div class="form-group">
+        <label>Teléfono</label>
+        <input type="tel" id="telefono" name="telefono" placeholder="(555) 555-5555" >
+    </div>
+    
+    <input type="hidden" id="estimado_final" name="estimado_final" value="">
+</div>
+
+          <button type="submit" id="btnCalcular">Calcular Estimado</button>
+        </form>
+
+        <div id="resultado" class="hidden">
+          <hr>
+          <h3>Rango Estimado:</h3>
+          <div class="price-box">
+            <span id="precioFinal">$0</span>
+          </div>
+          <p class="disclaimer">
+            *Incluye materiales, mano de obra y permisos aprox.<br>
+            *No incluye reemplazo de madera podrida.
+          </p>
+          <button class="btn-secondary">Contactar un Agente</button>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>
