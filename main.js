@@ -42,30 +42,23 @@ function handleCalculationSubmit(e) {
   leadForm.classList.remove('hidden');
 
   // ----------------------------------------------------
-  // 5. ¡HABILITAR EL ENVÍO A NETLIFY! (La Corrección)
+  // 5. ¡HABILITAR EL ENVÍO A NETLIFY! (Corrección Final)
   // ----------------------------------------------------
   
   // 5a. Removemos el listener actual de CÁLCULO
   form.removeEventListener('submit', handleCalculationSubmit);
   
-  // 5b. Agregamos un nuevo listener que ya NO bloquea el envío, 
-  //     permitiendo que Netlify se haga cargo.
+  // 5b. Agregamos un nuevo listener que ya NO bloquea el envío.
+  //     Usamos una función anónima simple que no interfiere.
   form.addEventListener('submit', function(event) {
-      // Simplemente permitimos que el formulario se envíe si no hay más validación
-      // Si la validación del nombre, email, etc., pasa, el envío sigue.
-      // Netlify captura los datos y te dirige a la página de éxito.
+      // Dejamos que el envío nativo ocurra. Netlify capturará los datos.
+      // Si quieres validación final, agrégala aquí con event.preventDefault()
+      return; 
   });
   
-  // Opcional: Reemplazar el botón "Calcular" por "Enviar" al final de la lógica
+  // 5c. Modificamos el texto y tipo del botón Contactar (si existe)
   const btnContactar = document.getElementById('btnContactar'); 
   if (btnContactar) {
-      btnContactar.setAttribute('type', 'submit');
+      // El HTML ya lo tiene como submit, solo ajustamos el texto
       btnContactar.textContent = 'Enviar Estimado y Contactar';
   }
-}
-
-// ----------------------------------------------------
-// 2. ASIGNACIÓN DEL EVENTO INICIAL (se mantiene igual)
-// ----------------------------------------------------
-
-form.addEventListener('submit', handleCalculationSubmit);
