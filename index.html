@@ -16,58 +16,70 @@
         </header>
 
         <form 
-    id="roofForm" 
-    method="POST" 
-    data-netlify="true" 
-    name="cotizador_florida"
-    action="/success">
-    
-    <input type="hidden" name="form-name" value="cotizador_florida" />
-
-    <label>Pisos:</label><br>
-    <label><input type="radio" name="pisos" value="1.0" checked> 1 Piso</label> 
-    <div id="resultado" class="hidden">
-        
-        <p>El costo estimado es: <span id="precioFinal"></span></p>
-        
-        <input type="hidden" id="estimado_final" name="estimado_final" value="" />
-        
-        
-        <div id="leadForm" class="hidden"> 
-            <hr>
-            <h3>Datos de Contacto</h3>
+            id="roofForm" 
+            method="POST" 
+            data-netlify="true" 
+            name="cotizador_florida"
+            action="/success"> 
             
-            <label for="nombre">Nombre:</label>
-            <input type="text" id="nombre" name="nombre" required>
-
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
+            <input type="hidden" name="form-name" value="cotizador_florida" />
             
-            <label for="telefono">Teléfono:</label>
-            <input type="tel" id="telefono" name="telefono" required>
+            <label for="area">Área Total del Techo (Sq. Ft.):</label>
+            <input type="number" id="area" name="area" required min="100">
 
-            <button type="submit" class="btn-secondary" id="btnContactar">Enviar Estimado y Contactar</button>
+            <label for="material">Costo de Material ($/sq.):</label>
+            <input type="number" id="material" name="material" required>
+
+            <label for="pitch">Factor de Pendiente (Pitch):</label>
+            <select id="pitch" name="pitch" required>
+                <option value="1.0">Baja (1.0)</option>
+                <option value="1.15">Media (1.15)</option>
+                <option value="1.3">Alta (1.3)</option>
+            </select>
             
-        </div>
-        
-    </div>
-    
-    <button type="button" class="btn-primary" id="btnCalcular">Calcular Estimado</button>
+            <label for="material_actual">Costo de Remover Material Actual ($/sq.):</label>
+            <input type="number" id="material_actual" name="material_actual" required>
 
-</form>
+            <label>Pisos:</label><br>
+            <label><input type="radio" name="pisos" value="1.0" checked> 1 Piso</label> 
+            <label><input type="radio" name="pisos" value="1.1"> 2 Pisos</label>
+            <label><input type="radio" name="pisos" value="1.2"> 3+ Pisos</label>
 
-      <div id="resultado" class="hidden">
-    <hr>
-    <h3>Rango Estimado:</h3>
-    <div class="price-box">
-        <span id="precioFinal">$0</span>
-    </div>
-    <p class="disclaimer">
-        *Incluye materiales, mano de obra y permisos aprox.<br>
-        *No incluye reemplazo de madera podrida.
-    </p>
-    <button type="submit" class="btn-secondary" id="btnContactar">Contactar un Agente</button>
-</div>
+            <button type="button" class="btn-primary" id="btnCalcular">Calcular Estimado</button>
+            
+            
+            <div id="resultado" class="hidden">
+                <hr>
+                <h3>Rango Estimado:</h3>
+                <div class="price-box">
+                    <span id="precioFinal">$0</span>
+                </div>
+                
+                <input type="hidden" id="estimado_final" name="estimado_final" value="" />
+
+                <div id="leadForm" class="hidden"> 
+                    <hr>
+                    <h3>Datos de Contacto</h3>
+                    
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" id="nombre" name="nombre" required>
+
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                    
+                    <label for="telefono">Teléfono:</label>
+                    <input type="tel" id="telefono" name="telefono" required>
+
+                    <button type="submit" class="btn-secondary" id="btnContactar">Enviar Estimado y Contactar</button>
+                </div>
+
+                <p class="disclaimer">
+                    *Incluye materiales, mano de obra y permisos aprox.<br>
+                    *No incluye reemplazo de madera podrida.
+                </p>
+            </div>
+            
+        </form>
       </div>
     </div>
     <script type="module" src="./main.js"></script>
