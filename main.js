@@ -65,12 +65,11 @@ function handleCalculationSubmit(e) {
 
   // 5. HABILITAR EL ENVÍO A NETLIFY
   
-  // 5a. Método más fuerte: Establecer el onsubmit a null limpia cualquier listener
-  // que pueda estar bloqueando el envío.
+  // 5a. Método más fuerte: Establecer el onsubmit a null limpia todos los listeners 
+  //     de envío adjuntos a la propiedad (que es donde Git los está adjuntando).
   form.onsubmit = null;
   
-  // 5b. OPCIONAL: Revertimos el listener para el caso de que alguien lo necesite,
-  // pero el onsubmit = null es el que hace la limpieza principal.
+  // 5b. Eliminamos el listener de cálculo (por si acaso).
   form.removeEventListener('submit', handleCalculationSubmit);
   
   // Reemplazamos el botón de Contactar por 'Enviar Estimado'
