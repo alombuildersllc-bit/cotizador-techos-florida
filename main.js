@@ -61,4 +61,4 @@ function handleCalculationSubmit(e) {
   if (btnContactar) {
       // El HTML ya lo tiene como submit, solo ajustamos el texto
       btnContactar.textContent = 'Enviar Estimado y Contactar';
-  }
+  }}
